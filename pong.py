@@ -2,6 +2,8 @@ from tkinter import *
 import random
 import time
 
+counter = 0
+counter1 = 0
 x=True
 root = Tk()
 root. title("PONG")
@@ -31,8 +33,11 @@ class Ball:
         self.y = -3
         self.canvas_height = self.canvas.winfo_height()
         self.canvas_width = self.canvas.winfo_width()
-         
-
+        if counter ==2 or counter1 ==2:
+            start=0
+            self.x=0
+            self.y=0
+        
 
 
    
@@ -45,8 +50,12 @@ class Ball:
             self.y = -3
         if pos[0]<=0:
             self.x = 3
+            self.score(True)
+            
         if pos[2]>= self.canvas_width:
             self.x =-3
+            self.score(False)
+            
             
         if self.hit_paddle(pos) == True:
             self.x =3
@@ -71,9 +80,30 @@ class Ball:
                 return True
             return False
  
-
-                            
+   
+    
+    
+    
+    
+    
+    
+    def score(self, val):
+        global counter
+        global counter1
+        
+        if val == True:
+            a = self.canvas.create_text(125,40, text = counter, font = ("Arial", 60), fill = "white")
+            canvas.itemconfig(a,fill = "black")
+            counter += 1
+            a = self.canvas.create_text(125,40, text = counter, font = ("Arial", 60), fill = "white")
             
+        if val == False:
+            a = self.canvas.create_text(375,40, text = counter1, font = ("Arial", 60), fill = "white")
+            canvas.itemconfig(a,fill = "black")
+            counter1 += 1
+            a = self.canvas.create_text(375,40, text = counter1, font = ("Arial", 60), fill = "white")
+        
+   
 class Paddle:
     def __init__(self,canvas,color):
         self.canvas = canvas
@@ -92,9 +122,9 @@ class Paddle:
             self.y = 0
             
     def turn_left(self,evt):
-        self.y = -3
+        self.y = -5
     def turn_right(self,evt):
-        self.y = 3
+        self.y = 5
    
 class Paddle1:
     def __init__(self, canvas, color):
@@ -115,10 +145,10 @@ class Paddle1:
             self.y = 0
     
     def turn_left(self,evt):
-        self.y = 3
+        self.y = 5
     
     def turn_right(self,evt):
-        self.y = -3
+        self.y = -5
        
 
 paddle = Paddle(canvas,"blue")
@@ -129,6 +159,27 @@ while x == True:
     ball.draw()
     paddle.draw()
     paddle1.draw()
+    
+    
+    if counter == 2:
+        ball.x=0
+        ball.y=0
+        paddle.y=0
+        paddle1.y=0
+        canvas.create_text(250,250,text="Congrats Player1 ! You Win!", font = 32, fill="white")
+        canvas.create_text(250,125,text="Score:"+ str(counter)+" - "+str(counter1), font = 32, fill="red")
+    
+    if counter1 == 2:
+        ball.x=0
+        ball.y=0
+        paddle.y=0
+        paddle1.y=0
+        canvas.create_text(250,250,text="Congrats Player2 ! You Win!", font = 32, fill="white")
+        canvas.create_text(250,125,text="Score:"+ str(counter)+" - "+str(counter1), font = 32, fill="red")
+           
     root.update_idletasks
     root.update()
     time.sleep(0.01)
+    
+    if counter ==2 or counter1 ==2:
+        time.sleep(10000)
