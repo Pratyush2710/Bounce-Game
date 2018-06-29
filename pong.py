@@ -161,7 +161,7 @@ while x == True:
     paddle1.draw()
     
     
-    if counter == 2:
+    if counter == 12:
         ball.x=0
         ball.y=0
         paddle.y=0
@@ -169,7 +169,7 @@ while x == True:
         canvas.create_text(250,250,text="Congrats Player1 ! You Win!", font = 32, fill="white")
         canvas.create_text(250,125,text="Score:"+ str(counter)+" - "+str(counter1), font = 32, fill="red")
     
-    if counter1 == 2:
+    if counter1 == 12:
         ball.x=0
         ball.y=0
         paddle.y=0
@@ -181,5 +181,5 @@ while x == True:
     root.update()
     time.sleep(0.01)
     
-    if counter ==2 or counter1 ==2:
+    if counter ==12 or counter1 ==12:
         time.sleep(10000)
